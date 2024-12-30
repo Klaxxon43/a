@@ -1,25 +1,24 @@
 const { Bot, Keyboard, session } = require('grammy');
 const { NodeSSH } = require('node-ssh');
 const ssh = new NodeSSH();
-require('dotenv').config();
 
-const bot = new Bot(process.env.BOT_API_KEY);
-const adminId = parseInt(process.env.ADMIN_ID, 10);
+const bot = new Bot('7815701387:AAG1amCECjAseY9H1N7U0BzBi6R7rPMsOYY');
+const adminId = parseInt('5129878568', 10);
 
 // Разбор PROJECT_PATHS из переменной окружения
-const projectPaths = process.env.PROJECT_PATHS.split(',').reduce((acc, path) => {
+const projectPaths = 'gemsShop:/root/ControlServerBot/tg_bot/main,garant:/root/ControlServerBot/garant'.split(',').reduce((acc, path) => {
   const [name, location] = path.split(':');
   acc[name] = location;
   return acc;
 }, {});
 
-const connectToServer = async () => {
+const connectToServer = async() => {
   await ssh.connect({
-    host: process.env.SERVER_HOST,
-    username: process.env.SERVER_USERNAME,
-    password: process.env.SERVER_PASSWORD,
-  });
-};
+      host: '2.59.161.99',
+      username: 'root',
+      password: 'X1OcC1VRzL151'
+  })
+}
 
 const getPM2Status = async () => {
   const result = await ssh.execCommand('pm2 jlist');
